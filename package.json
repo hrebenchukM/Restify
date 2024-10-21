@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "express": "^4.21.0",
+    "fs": "^0.0.1-security",
+    "mssql": "^11.0.1",
+    "restify": "^11.1.0"
+  }
+}
