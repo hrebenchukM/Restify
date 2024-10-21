@@ -54,7 +54,7 @@ module.exports = {
 		request.query("SELECT Login FROM Users WHERE Login = @Login", function(err, result) {
 			if (err) console.log(err); 
 			if (result.recordset.length > 0) {
-				res.send('login exists');
+				console.log('login exists');
 				return; 
 			}
 
@@ -67,86 +67,11 @@ module.exports = {
 			insRequest.query(`INSERT INTO Users (Name, Login, Password) VALUES (@Name, @Login, @Password)`, function(err, rows) {
             if (err) console.log(err); 
 			console.log('POST ' + req.url);
-			res.send('sample item added to database');
+			console.log('sample item added to database');
 		  });
 		}); 
     },
 
 
-    updateUser: function (req, res,next) { 
-		var request = new mssql.Request(connection);
-	
-		request.input('Login', mssql.NVarChar(50), Login);
-	
-	request.query("SELECT Login FROM Users WHERE Login = @Login", function(err, result) {
-		if (err) console.log(err); 
-		if (result.recordset.length = 0) {
-			res.send('login no exists');
-			return; 
-		}
-
-		var ps = new mssql.PreparedStatement(connection);   
-		
-		var data = req.body;
-		
-		var inserts = {
-			Login: data.Login, 
-			Password: data.Password, 
-			Name: data.Name, 
-			id: parseInt(data.id) 
-		} 
-		
-		ps.input('Login', mssql.Text); 
-		ps.input('Password', mssql.Text); 
-		ps.input('Name', mssql.Text);  
-		ps.input('id', mssql.Int); 
-		
-		ps.prepare('UPDATE Users SET Login=@Login, Name=@Name, Password=@Password WHERE id=@id', function(err) {
-			if (err) console.log(err); 
-			
-			ps.execute(inserts, function(err, rows) {
-				if (err) console.log(err); 
-				
-				console.log('PUT ' + req.url);
-                res.send('item updated');
-				ps.unprepare(); 
-			}); 
-		}); 
-	}); 
-    },
-    // удаление элемента 
-    removeUser: function (req, res,next) {
-	var request = new mssql.Request(connection);
-	
-		request.input('Login', mssql.NVarChar(50), Login);
-	
-	request.query("SELECT Login FROM Users WHERE Login = @Login", function(err, result) {
-		if (err) console.log(err); 
-		if (result.recordset.length = 0) {
-			res.send('login no exists');
-			return; 
-		}
-
-		var ps = new mssql.PreparedStatement(connection);   
-		
-		var inserts = {
-			id: parseInt(req.params.id)  
-		} 
-		
-		ps.input('id', mssql.Int);  
-		
-		ps.prepare('DELETE FROM Users WHERE id=@id', function(err) {
-			if (err) console.log(err); 
-			
-			ps.execute(inserts, function(err, rows) {
-				if (err) console.log(err); 
-				
-				console.log('DELETE ' + req.url);
-                res.send('item deleted'); 
-				
-				ps.unprepare(); 
-			}); 
-		});
-	}); 
-    }
+  
  }

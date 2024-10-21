@@ -55,6 +55,7 @@ server.get('/api/login', function (req, res, next) {
 
 server.post('/api/register', function (req, res, next) {
     apiHandler.createItem(req,res);
+    sendFile(res, 'user.html');
 });
 
 
@@ -64,15 +65,6 @@ server.post('/api/login', function (req, res, next) {
 });
 
 
-server.put('/api/register', function (req, res, next) {
-    apiHandler.updateItem(req, res);
-});
-
-
-
-server.del('/api/register', function (req, res, next) {
-    apiHandler.removeItem(req, res);
-});
 
 
 
