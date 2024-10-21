@@ -55,7 +55,6 @@ server.get('/api/login', function (req, res, next) {
 
 server.post('/api/register', function (req, res, next) {
     apiHandler.createItem(req,res);
-    sendFile(res, 'user.html');
 });
 
 

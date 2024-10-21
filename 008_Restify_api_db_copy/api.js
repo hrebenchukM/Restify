@@ -54,7 +54,7 @@ module.exports = {
 		request.query("SELECT Login FROM Users WHERE Login = @Login", function(err, result) {
 			if (err) console.log(err); 
 			if (result.recordset.length > 0) {
-				console.log('login exists');
+				res.send('login exists');
 				return; 
 			}
 
@@ -67,11 +67,10 @@ module.exports = {
 			insRequest.query(`INSERT INTO Users (Name, Login, Password) VALUES (@Name, @Login, @Password)`, function(err, rows) {
             if (err) console.log(err); 
 			console.log('POST ' + req.url);
-			console.log('sample item added to database');
+			res.send('sample item added to database');
 		  });
 		}); 
     },
 
 
-  
  }
